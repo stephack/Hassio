@@ -1,0 +1,100 @@
+blueprint:
+  name: Occupancy Lighting
+  description: 'Creates a motion based lighting automation with 2 stage dimming.'
+  domain: automation
+  input:
+    motion_sensor:
+      name: Motion Sensor
+      description: The sensor wich triggers the lighting automation
+      selector:
+        entity:
+          domain: binary_sensor
+          device_class: motion
+    light:
+      name: Light
+      description: The light to control
+      selector:
+        entity:
+          domain: light
+    levelon:
+      name: Level (Optional)
+      description: Turn on ans set light to this level (1-100)
+      default: ''
+      selector:
+        number:
+          min: 1.0
+          max: 100.0
+          #unit_of_measurement: 
+          mode: slider
+          step: 1.0
+    delay1:
+      name: Delay to Dim (Optional)
+      description: Wait before dimming lightt
+      default: ''
+      selector:
+        number:
+          min: 0.0
+          max: 300.0
+          unit_of_measurement: seconds
+          mode: slider
+          step: 5.0
+    leveldim:
+      name: Dim to this level (Optional)
+      description: Dim light to this level (1-100)
+      default: ''
+      selector:
+        number:
+          min: 1.0
+          max: 100.0
+          #unit_of_measurement: 
+          mode: slider
+          step: 1.0
+    delay2:
+      name: Delay to Off (Optional)
+      description: Wait before turning lightt off
+      default: ''
+      selector:
+        number:
+          min: 0.0
+          max: 60.0
+          unit_of_measurement: seconds
+          mode: slider
+          step: 5.0
+  #source_url: https://community.home-assistant.io/t/send-camera-snapshot-notification-on-motion/254565
+trigger:
+  platform: state
+  entity_id: !input 'motion_sensor'
+variables:
+  motion_sensor: !input 'motion_sensor'
+  light: !input 'light'
+  delay1: !input 'delay1'
+  delay2: !input 'delay2'
+  levelon: !input 'levelon'
+  leveldim: !input 'leveldim'
+action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: !input 'motion_sensor'
+        state: 'on'
+      sequence:
+      - service: light.turn_on
+        data:
+          brightness_pct: !input 'levelon'
+        entity_id: !input 'light'
+    - conditions:
+      - condition: state
+        entity_id: !input 'motion_sensor'
+        state: 'off'
+      sequence:
+      - delay: '{{ delay1 }}'
+      - service: light.turn_on
+        data:
+          brightness_pct: !input 'leveldim'
+        entity_id: !input 'light'
+      - delay: '{{ delay2 }}'
+      - service: light.turn_off
+        data: {}
+        entity_id: !input 'light'
+    default: []
+mode: restart
