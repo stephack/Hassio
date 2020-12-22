@@ -1,5 +1,5 @@
 blueprint:
-  name: Occupancy Lighting
+  name: BP - Occupancy Lighting
   description: 'Creates a motion based lighting automation with 2 stage dimming.'
   domain: automation
   input:
@@ -10,16 +10,17 @@ blueprint:
         entity:
           domain: binary_sensor
           device_class: motion
-    light:
+    light1:
       name: Light
       description: The light to control
+      default: 'light.none'
       selector:
         entity:
           domain: light
     levelon:
       name: Level (Optional)
-      description: Turn on ans set light to this level (1-100)
-      default: ''
+      description: Turn on and set light to this level (1-100)
+      default: '100'
       selector:
         number:
           min: 1.0
@@ -27,21 +28,35 @@ blueprint:
           #unit_of_measurement: 
           mode: slider
           step: 1.0
+    switch1:
+      name: Switch
+      description: Switch to turn on
+      default: switch.none
+      selector:  
+        entity:
+          domain: switch
+    bool1:
+      name: Boolean
+      description: Input boolean to turn on
+      default: bool.none
+      selector:  
+        entity:
+          domain: input_boolean
     delay1:
       name: Delay to Dim (Optional)
       description: Wait before dimming lightt
-      default: ''
+      default: '0'
       selector:
         number:
           min: 0.0
-          max: 300.0
+          max: 600.0
           unit_of_measurement: seconds
           mode: slider
           step: 5.0
     leveldim:
       name: Dim to this level (Optional)
       description: Dim light to this level (1-100)
-      default: ''
+      default: '100'
       selector:
         number:
           min: 1.0
@@ -52,7 +67,7 @@ blueprint:
     delay2:
       name: Delay to Off (Optional)
       description: Wait before turning lightt off
-      default: ''
+      default: '0'
       selector:
         number:
           min: 0.0
@@ -60,41 +75,74 @@ blueprint:
           unit_of_measurement: seconds
           mode: slider
           step: 5.0
+    automation_blocker:
+      name: Automation Blocker
+      description: Only run if this boolean is true (Optional)
+      default: input_boolean.none
+      selector:
+        entity:
+          domain: input_boolean 
   #source_url: https://community.home-assistant.io/t/send-camera-snapshot-notification-on-motion/254565
 trigger:
   platform: state
   entity_id: !input 'motion_sensor'
+
 variables:
   motion_sensor: !input 'motion_sensor'
-  light: !input 'light'
+  light1: !input 'light1'
+  switch1: !input 'switch1'
   delay1: !input 'delay1'
   delay2: !input 'delay2'
   levelon: !input 'levelon'
   leveldim: !input 'leveldim'
+  automation_blocker: !input automation_blocker
+  bool1: !input 'bool1'
+
+condition:
+  - condition: template
+    value_template:  "{{ automation_blocker == 'input_boolean.none' or (states[automation_blocker].state == 'on') }}" 
+
 action:
   - choose:
-    - conditions:
-      - condition: state
-        entity_id: !input 'motion_sensor'
-        state: 'on'
+    - conditions: "{{ is_state(motion_sensor, 'on') }}"
       sequence:
-      - service: light.turn_on
-        data:
-          brightness_pct: !input 'levelon'
-        entity_id: !input 'light'
-    - conditions:
-      - condition: state
-        entity_id: !input 'motion_sensor'
-        state: 'off'
+      # If chosen, Turn on light
+      - choose:
+        - conditions: "{{ light1 != 'light.none' }}"
+          sequence:
+          - service: light.turn_on
+            data:
+              brightness_pct: !input 'levelon'
+            entity_id: !input 'light1'
+      # If chosen, turn on switch
+      - choose:
+        - conditions: "{{ switch1 != 'switch.none' }}"
+          sequence:
+          - service: switch.turn_on
+            data: {}
+            entity_id: !input 'switch1'
+      # If chosen, turn on input_boolean
+      - choose:
+        - conditions: "{{ bool1 != 'bool.none' }}"
+          sequence:
+          - service: input_boolean.turn_on
+            data: {}
+            entity_id: !input 'bool1'
+
+    # Motion Off
+    - conditions: "{{is_state(motion_sensor, 'off') }}"
+      # - condition: state
+      #   entity_id: !input 'motion_sensor'
+      #   state: 'off'
       sequence:
       - delay: '{{ delay1 }}'
       - service: light.turn_on
         data:
           brightness_pct: !input 'leveldim'
-        entity_id: !input 'light'
+        entity_id: !input 'light1'
       - delay: '{{ delay2 }}'
       - service: light.turn_off
         data: {}
-        entity_id: !input 'light'
+        entity_id: !input 'light1'
     default: []
 mode: restart
