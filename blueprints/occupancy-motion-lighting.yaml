@@ -100,7 +100,7 @@ variables:
 
 condition:
   - condition: template
-    value_template:  "{{ automation_blocker == 'input_boolean.none' or (states[automation_blocker].state == 'on') }}" 
+    value_template:  "{{ automation_blocker == 'input_boolean.none' or (states(automation_blocker).state == 'on') }}" 
 
 action:
   - choose:
