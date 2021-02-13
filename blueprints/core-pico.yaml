@@ -1,0 +1,94 @@
+blueprint:
+  name: BP - Pico Config
+  description: "This is for the 5 button picos that have the following model:\n\n
+  PJ2-3BRL-GXX-X01 (Pico3ButtonRaiseLower)\n\nSelect an action for each button listed below. "
+  domain: automation
+  input:
+    pico_remote:
+      name: Pico Remote
+      description: "Select the pico remote to configure:"
+      selector:
+        device:
+          integration: lutron_caseta
+          model: PJ2-3BRL-GXX-X01 (Pico3ButtonRaiseLower)
+    top_on:
+      name: Top (On) Button
+      description: "Execute when TOP button is pressed"
+      default: []
+      selector:
+        action: {}
+    up_raise:
+      name: Up (Raise) Arrow Button
+      description: "Execute when UP button is pressed"
+      default: []
+      selector:
+        action: {}
+    middle_stop:
+      name: Middle (Fav) Button
+      description: "Execute when MIDDLE button is pressed"
+      default: []
+      selector:
+        action: {}
+    down_lower:
+      name: Down (Lower) Arrow Button
+      description: "Execute when DOWN button is pressed"
+      default: []
+      selector:
+        action: {}
+    bottom_off:
+      name: Bottom (Off) Button
+      description: "Execute when BOTTOM button is pressed"
+      default: []
+      selector:
+        action: {}
+trigger:
+  - platform: device
+    device_id: !input pico_remote
+    domain: lutron_caseta
+    type: press
+    subtype: 'on'
+  - platform: device
+    device_id: !input pico_remote
+    domain: lutron_caseta
+    type: press
+    subtype: 'raise'
+  - platform: device
+    device_id: !input pico_remote
+    domain: lutron_caseta
+    type: press
+    subtype: 'stop'
+  - platform: device
+    device_id: !input pico_remote
+    domain: lutron_caseta
+    type: press
+    subtype: 'lower'
+  - platform: device
+    device_id: !input pico_remote
+    domain: lutron_caseta
+    type: press
+    subtype: 'off'
+condition: []
+action:
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: '{{ trigger.event.data.button_number == 2 }}'
+        sequence: !input top_on
+      - conditions:
+          - condition: template
+            value_template: '{{ trigger.event.data.button_number == 5 }}'
+        sequence: !input up_raise
+      - conditions:
+          - condition: template
+            value_template: '{{ trigger.event.data.button_number == 3 }}'
+        sequence: !input middle_stop
+      - conditions:
+          - condition: template
+            value_template: '{{ trigger.event.data.button_number == 6 }}'
+        sequence: !input down_lower
+      - conditions:
+          - condition: template
+            value_template: '{{ trigger.event.data.button_number == 4 }}'
+        sequence: !input bottom_off
+    default: []
+mode: restart
