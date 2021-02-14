@@ -12,32 +12,62 @@ blueprint:
           integration: lutron_caseta
           model: PJ2-3BRL-GXX-X01 (Pico3ButtonRaiseLower)
     top_on:
-      name: Top (On) Button
-      description: "Execute when TOP button is pressed"
+      name: Top (On) Button Pressed
+      description: "Execute when TOP button is PRESSED"
+      default: []
+      selector:
+        action: {}
+    top_on_release:
+      name: Top (On) Button Released
+      description: "Execute when TOP button is RELEASED"
       default: []
       selector:
         action: {}
     up_raise:
-      name: Up (Raise) Arrow Button
-      description: "Execute when UP button is pressed"
+      name: Up (Raise) Arrow Button Pressed
+      description: "Execute when UP button is PRESSED"
+      default: []
+      selector:
+        action: {}
+    up_raise_release:
+      name: Up (Raise) Arrow Button Released
+      description: "Execute when UP button is RELEASED"
       default: []
       selector:
         action: {}
     middle_stop:
-      name: Middle (Fav) Button
-      description: "Execute when MIDDLE button is pressed"
+      name: Middle (Fav) Button Pressed
+      description: "Execute when MIDDLE button is PRESSED"
+      default: []
+      selector:
+        action: {}
+    middle_stop_release:
+      name: Middle (Fav) Button Released
+      description: "Execute when MIDDLE button is RELEASED"
       default: []
       selector:
         action: {}
     down_lower:
-      name: Down (Lower) Arrow Button
-      description: "Execute when DOWN button is pressed"
+      name: Down (Lower) Arrow Button Pressed
+      description: "Execute when DOWN button is PRESSED"
+      default: []
+      selector:
+        action: {}
+    down_lower_release:
+      name: Down (Lower) Arrow Button Released
+      description: "Execute when DOWN button is RELEASED"
       default: []
       selector:
         action: {}
     bottom_off:
-      name: Bottom (Off) Button
-      description: "Execute when BOTTOM button is pressed"
+      name: Bottom (Off) Button Pressed
+      description: "Execute when BOTTOM button is PRESSED"
+      default: []
+      selector:
+        action: {}
+    bottom_off_release:
+      name: Bottom (Off) Button Released
+      description: "Execute when BOTTOM button is RELEASED"
       default: []
       selector:
         action: {}
@@ -67,28 +97,73 @@ trigger:
     domain: lutron_caseta
     type: press
     subtype: 'off'
+  - platform: device
+    device_id: !input pico_remote
+    domain: lutron_caseta
+    type: release
+    subtype: 'on'
+  - platform: device
+    device_id: !input pico_remote
+    domain: lutron_caseta
+    type: release
+    subtype: 'raise'
+  - platform: device
+    device_id: !input pico_remote
+    domain: lutron_caseta
+    type: release
+    subtype: 'stop'
+  - platform: device
+    device_id: !input pico_remote
+    domain: lutron_caseta
+    type: release
+    subtype: 'lower'
+  - platform: device
+    device_id: !input pico_remote
+    domain: lutron_caseta
+    type: release
+    subtype: 'off'
 condition: []
 action:
   - choose:
       - conditions:
           - condition: template
-            value_template: '{{ trigger.event.data.button_number == 2 }}'
+            value_template: '{{ trigger.event.data.action == "press" and trigger.event.data.button_number == 2 }}'
         sequence: !input top_on
       - conditions:
           - condition: template
-            value_template: '{{ trigger.event.data.button_number == 5 }}'
+            value_template: '{{ trigger.event.data.action == "press" and trigger.event.data.button_number == 5 }}'
         sequence: !input up_raise
       - conditions:
           - condition: template
-            value_template: '{{ trigger.event.data.button_number == 3 }}'
+            value_template: '{{ trigger.event.data.action == "press" and trigger.event.data.button_number == 3 }}'
         sequence: !input middle_stop
       - conditions:
           - condition: template
-            value_template: '{{ trigger.event.data.button_number == 6 }}'
+            value_template: '{{ trigger.event.data.action == "press" and trigger.event.data.button_number == 6 }}'
         sequence: !input down_lower
       - conditions:
           - condition: template
-            value_template: '{{ trigger.event.data.button_number == 4 }}'
+            value_template: '{{ trigger.event.data.action == "press" and trigger.event.data.button_number == 4 }}'
         sequence: !input bottom_off
+      - conditions:
+          - condition: template
+            value_template: '{{ trigger.event.data.action == "release" and trigger.event.data.button_number == 2 }}'
+        sequence: !input top_on_release
+      - conditions:
+          - condition: template
+            value_template: '{{ trigger.event.data.action == "release" and trigger.event.data.button_number == 5 }}'
+        sequence: !input up_raise_release
+      - conditions:
+          - condition: template
+            value_template: '{{ trigger.event.data.action == "release" and trigger.event.data.button_number == 3 }}'
+        sequence: !input middle_stop_release
+      - conditions:
+          - condition: template
+            value_template: '{{ trigger.event.data.action == "release" and trigger.event.data.button_number == 6 }}'
+        sequence: !input down_lower_release
+      - conditions:
+          - condition: template
+            value_template: '{{ trigger.event.data.action == "release" and trigger.event.data.button_number == 4 }}'
+        sequence: !input bottom_off_release
     default: []
 mode: restart
