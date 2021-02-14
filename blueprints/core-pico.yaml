@@ -125,45 +125,32 @@ trigger:
 condition: []
 action:
   - choose:
-      - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.action == "press" and trigger.event.data.button_number == 2 }}'
-        sequence: !input top_on
-      - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.action == "press" and trigger.event.data.button_number == 5 }}'
-        sequence: !input up_raise
-      - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.action == "press" and trigger.event.data.button_number == 3 }}'
-        sequence: !input middle_stop
-      - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.action == "press" and trigger.event.data.button_number == 6 }}'
-        sequence: !input down_lower
-      - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.action == "press" and trigger.event.data.button_number == 4 }}'
-        sequence: !input bottom_off
-      - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.action == "release" and trigger.event.data.button_number == 2 }}'
-        sequence: !input top_on_release
-      - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.action == "release" and trigger.event.data.button_number == 5 }}'
-        sequence: !input up_raise_release
-      - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.action == "release" and trigger.event.data.button_number == 3 }}'
-        sequence: !input middle_stop_release
-      - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.action == "release" and trigger.event.data.button_number == 6 }}'
-        sequence: !input down_lower_release
-      - conditions:
-          - condition: template
-            value_template: '{{ trigger.event.data.action == "release" and trigger.event.data.button_number == 4 }}'
-        sequence: !input bottom_off_release
+      - conditions: '{{ trigger.event.data.action == "press" }}'
+        sequence:
+        - choose:
+          - conditions: '{{ trigger.event.data.button_number == 2 }}'
+            sequence: !input top_on
+          - conditions: '{{ trigger.event.data.button_number == 5 }}'
+            sequence: !input up_raise
+          - conditions: '{{ trigger.event.data.button_number == 3 }}'
+            sequence: !input middle_stop
+          - conditions: '{{ trigger.event.data.button_number == 6 }}'
+            sequence: !input down_lower
+          - conditions: '{{ trigger.event.data.button_number == 4 }}'
+            sequence: !input bottom_off
+
+      - conditions: '{{ trigger.event.data.action == "release" }}'
+        sequence:
+        - choose:
+          - conditions: '{{ trigger.event.data.button_number == 2 }}'
+            sequence: !input top_on_release
+          - conditions: '{{ trigger.event.data.button_number == 5 }}'
+            sequence: !input up_raise_release
+          - conditions: '{{ trigger.event.data.button_number == 3 }}'
+            sequence: !input middle_stop_release
+          - conditions: '{{ trigger.event.data.button_number == 6 }}'
+            sequence: !input down_lower_release
+          - conditions: '{{ trigger.event.data.button_number == 4 }}'
+            sequence: !input bottom_off_release
     default: []
 mode: restart
