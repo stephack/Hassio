@@ -11,6 +11,25 @@ blueprint:
         device:
           integration: lutron_caseta
           model: PJ2-3BRL-GXX-X01 (Pico3ButtonRaiseLower)
+    auto_mode:
+      name: Automation Mode
+      description: "Mode that automation runs in (single,  restart, queued, parallel)."
+      default: restart
+      selector:
+        select:
+          options:
+            - single
+            - restart
+            - queued
+            - parallel
+    mode_max:
+      name: "Mode Max (ignored by Single and Restart Modes)"
+      description: "Maximum number of runs that can be executed or queued at a time."
+      default: 10
+      selector:
+        number:
+          min: 1
+          max: 15
     top_on:
       name: Top (On) Button Pressed
       description: "Execute when TOP button is PRESSED"
@@ -153,4 +172,5 @@ action:
           - conditions: '{{ trigger.event.data.button_number == 4 }}'
             sequence: !input bottom_off_release
     default: []
-mode: restart
+mode: !input auto_mode
+max: !input mode_max
