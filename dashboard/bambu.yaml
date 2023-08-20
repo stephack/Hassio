@@ -188,7 +188,7 @@ cards:
           left: 81%
         chips:
           - type: entity
-            entity: camera.sonicpad
+            entity: camera.octoprint_cam1
             double_tap_action:
               action: none
             icon_color: green
@@ -574,7 +574,7 @@ cards:
                       ha-card {
                         border: none !important;
                       }
-    image: /local/bambuprinter/on_p1p.png
+    image: /local/bambuprinter/on_p1p_edit0.png
     entity: light.p1s_printer_chamber_light
     state_image:
       unavailable: /local/bambuprinter/off_p1p_edit5.png
