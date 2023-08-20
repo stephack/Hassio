@@ -1,0 +1,822 @@
+type: vertical-stack
+cards:
+  - type: picture-elements
+    view_layout:
+      column: 1
+    elements:
+      - type: custom:mushroom-template-card
+        layout: vertical
+        primary: '{{ state_attr(''sensor.p1s_ams_tray_1'', ''type'') }}'
+        secondary: ''
+        style:
+          top: 31%
+          left: 21.5%
+        entity: sensor.p1s_ams_tray_1
+        icon: hue:bridge-v1
+        icon_color: '{{ state_attr(''sensor.p1s_ams_tray_1'', ''color'') }}'
+        tap_action:
+          action: more-info
+        card_mod:
+          style:
+            mushroom-shape-icon$: |
+              .shape {
+                box-shadow: var(--tray_1_outline) !important;
+                --tray_1_outline: {% if is_state_attr('sensor.p1s_ams_tray_1',
+                'active', true) %} 0px 0px 4px 3px rgba(255,255,16,.7) {% else %} 0px
+                0px 0px 1px rgba(255,255,255,.7) {% endif %}
+              }
+            .: |
+              ha-card {
+                background-color: rgba(0,0,0,0);
+                border: none !important;
+              } 
+              ha-state-icon {
+                {{ 'animation: spin 1s linear infinite;' if is_state_attr('sensor.p1s_ams_tray_1', 'active', true) }}
+              }
+              :host {
+                --mush-icon-symbol-size: 35pxem;
+                --mush-icon-size: 35px;
+              }
+      - type: custom:mushroom-template-card
+        layout: vertical
+        primary: '{{ state_attr(''sensor.p1s_ams_tray_2'', ''type'') }}'
+        secondary: ''
+        style:
+          top: 31%
+          left: 39.5%
+        entity: sensor.p1s_ams_tray_2
+        icon: hue:bridge-v1
+        icon_color: '{{ state_attr(''sensor.p1s_ams_tray_2'', ''color'') }}'
+        tap_action:
+          action: more-info
+        card_mod:
+          style:
+            mushroom-shape-icon$: |
+              .shape {
+                box-shadow: var(--tray_2_outline) !important;
+                --tray_2_outline: {% if is_state_attr('sensor.p1s_ams_tray_2',
+                'active', true) %} 0px 0px 4px 3px rgba(255,255,16,.7) {% else %} 0px
+                0px 0px 1px rgba(255,255,255,.7) {% endif %}
+              }
+            .: |
+              ha-card {
+                background-color: rgba(0,0,0,0);
+                border: none !important;
+              } 
+              ha-state-icon {
+                {{ 'animation: spin 1s linear infinite;' if is_state_attr('sensor.p1s_ams_tray_2', 'active', true) }}
+              }
+              :host {
+                --mush-icon-symbol-size: 35pxem;
+                --mush-icon-size: 35px;
+              }
+      - type: custom:mushroom-template-card
+        layout: vertical
+        primary: '{{ state_attr(''sensor.p1s_ams_tray_3'', ''type'') }}'
+        secondary: ''
+        style:
+          top: 31%
+          left: 59.5%
+        entity: sensor.p1s_ams_tray_3
+        icon: hue:bridge-v1
+        icon_color: '{{ state_attr(''sensor.p1s_ams_tray_3'', ''color'') }}'
+        tap_action:
+          action: more-info
+        card_mod:
+          style:
+            mushroom-shape-icon$: |
+              .shape {
+                box-shadow: var(--tray_3_outline) !important;
+                --tray_3_outline: {% if is_state_attr('sensor.p1s_ams_tray_3',
+                'active', true) %} 0px 0px 4px 3px rgba(255,255,16,.7) {% else %} 0px
+                0px 0px 1px rgba(255,255,255,.7) {% endif %}
+              }
+            .: |
+              ha-card {
+                background-color: rgba(0,0,0,0);
+                border: none !important;
+              } 
+              ha-state-icon {
+                {{ 'animation: spin 1s linear infinite;' if is_state_attr('sensor.p1s_ams_tray_3', 'active', true) }}
+              }
+              :host {
+                --mush-icon-symbol-size: 35pxem;
+                --mush-icon-size: 35px;
+              }
+      - type: custom:mushroom-template-card
+        layout: vertical
+        primary: '{{ state_attr(''sensor.p1s_ams_tray_4'', ''type'') }}'
+        secondary: ''
+        style:
+          top: 31%
+          left: 79%
+        entity: sensor.p1s_ams_tray_4
+        icon: hue:bridge-v1
+        icon_color: '{{ state_attr(''sensor.p1s_ams_tray_4'', ''color'') }}'
+        tap_action:
+          action: more-info
+        card_mod:
+          style:
+            mushroom-shape-icon$: |
+              .shape {
+                box-shadow: var(--tray_4_outline) !important;
+                --tray_4_outline: {% if is_state_attr('sensor.p1s_ams_tray_4',
+                'active', true) %} 0px 0px 4px 3px rgba(255,255,16,.7) {% else %} 0px
+                0px 0px 1px rgba(255,255,255,.7) {% endif %}
+              }
+            .: |
+              ha-card {
+                background-color: rgba(0,0,0,0);
+                border: none !important;
+              } 
+              ha-state-icon {
+                {{ 'animation: spin 1s linear infinite;' if is_state_attr('sensor.p1s_ams_tray_4', 'active', true) }}
+              }
+              :host {
+                --mush-icon-symbol-size: 35pxem;
+                --mush-icon-size: 35px;
+              }
+      - type: conditional
+        conditions:
+          - entity: sensor.p1s_printer_print_status
+            state_not: Offline
+        elements:
+          - type: custom:mushroom-chips-card
+            style:
+              top: 80%
+              left: 49%
+            chips:
+              - type: entity
+                entity: sensor.p1s_ams_humidity_index
+                double_tap_action:
+                  action: none
+                icon_color: cyan
+                tap_action:
+                  action: more-info
+                hold_action:
+                  action: none
+            card_mod:
+              style: |
+                ha-card {
+                  --chip-height: 40px;
+                  --chip-icon-size: 20px;
+                  --chip-border-color: rgb(0,0,0,0);
+                  --chip-background: rgb(0,0,0,0);
+                }
+    image: /local/bambuprinter/AMS2.png
+    style: |
+      ha-card {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        --tray_1_color: {{state_attr('sensor.p1s_ams_tray_1', 'color') }};
+        --tray_2_color: {{state_attr('sensor.p1s_ams_tray_2', 'color') }};
+        --tray_3_color: {{state_attr('sensor.p1s_ams_tray_3', 'color') }};
+        --tray_4_color: {{state_attr('sensor.p1s_ams_tray_4', 'color') }};
+        --tray_1_bg: {% if is_state_attr('sensor.p1s_ams_tray_1', 'active', true) %} rgba(255, 255, 126, 0.5); {% else %} rgba(0,0,0,0.5); {% endif %}
+        --tray_2_bg: {% if is_state_attr('sensor.p1s_ams_tray_2', 'active', true) %} rgba(255, 255, 126, 0.5); {% else %} rgba(0,0,0,0.5); {% endif %}
+        --tray_3_bg: {% if is_state_attr('sensor.p1s_ams_tray_3', 'active', true) %} rgba(255, 255, 126, 0.5); {% else %} rgba(0,0,0,0.5); {% endif %}
+        --tray_4_bg: {% if is_state_attr('sensor.p1s_ams_tray_4', 'active', true) %} rgba(255, 255, 126, 0.5); {% else %} rgba(0,0,0,0.5); {% endif %}
+      }
+  - type: picture-elements
+    view_layout:
+      column: 1
+    elements:
+      - type: custom:mushroom-chips-card
+        style:
+          top: 7.4%
+          left: 81%
+        chips:
+          - type: entity
+            entity: camera.sonicpad
+            double_tap_action:
+              action: none
+            icon_color: green
+            hold_action:
+              action: more-info
+            icon: mdi:video-vintage
+            content_info: none
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: rgba(0,0,0,0);
+                  border: none !important;
+                  box-shadow: none !important;
+                  border-radius: 0px;
+                } 
+                :host {
+                  --mush-icon-symbol-size: .9em;
+                }
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  title: P1S Cams
+                  dismissable: true
+                  content:
+                    type: custom:frigate-card
+                    menu:
+                      buttons:
+                        live:
+                          enabled: false
+                        frigate:
+                          enabled: false
+                        cameras:
+                          enabled: false
+                        media_player:
+                          enabled: false
+                      style: outside
+                      position: bottom
+                    live: {}
+                    elements:
+                      - type: custom:frigate-card-menu-state-icon
+                        entity: light.p1s_printer_chamber_light
+                        tap_action:
+                          action: toggle
+                        hold_action:
+                          action: more-info
+                      - type: custom:frigate-card-menu-state-icon
+                        entity: light.office_fan_light
+                        tap_action:
+                          action: toggle
+                        hold_action:
+                          action: more-info
+                      - type: custom:frigate-card-menu-state-icon
+                        entity: binary_sensor
+                        icon: phu:ubiquiti-logo
+                        tap_action:
+                          action: url
+                          url_path: app://com.ubnt.unifi.protect
+                        hold_action:
+                          action: url
+                          url_path: app://com.ubnt.unifi.protect
+                    cameras:
+                      - camera_entity: camera.octoprint_cam1
+                        live_provider: ha
+                      - camera_entity: camera.octoprint_cam2
+                        live_provider: ha
+      - type: custom:mushroom-chips-card
+        style:
+          top: 7.4%
+          left: 11%
+        chips:
+          - type: entity
+            entity: switch.garage_outlet_sengled
+            double_tap_action:
+              action: none
+            icon_color: green
+            tap_action:
+              action: none
+            hold_action:
+              action: toggle
+            icon: mdi:power
+            content_info: none
+      - type: custom:mushroom-chips-card
+        style:
+          top: 29.5%
+          left: 20%
+        chips:
+          - type: entity
+            entity: light.p1s_printer_chamber_light
+            double_tap_action:
+              action: none
+            icon_color: amber
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+            icon: mdi:lightbulb-on-10
+            content_info: none
+      - type: custom:mushroom-chips-card
+        style:
+          top: 7.4%
+          left: 68.5%
+        chips:
+          - type: entity
+            entity: input_boolean.3d_printer_aq_toggle
+            double_tap_action:
+              action: none
+            icon_color: green
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+            icon: mdi:flower-pollen
+            content_info: none
+      - type: custom:mushroom-chips-card
+        style:
+          top: 7.4%
+          left: 56%
+        chips:
+          - type: entity
+            entity: input_boolean.3d_printer_print_controls
+            double_tap_action:
+              action: none
+            icon_color: green
+            hold_action:
+              action: none
+            tap_action:
+              action: toggle
+            icon: mdi:motion-play
+            content_info: none
+      - type: conditional
+        conditions:
+          - entity: sensor.p1s_printer_print_status
+            state_not: Offline
+        elements:
+          - type: custom:mushroom-template-card
+            layout: vertical
+            secondary: ''
+            primary: '{{ state_attr(''sensor.p1s_external_spool'', ''type'') }}'
+            style:
+              top: 92%
+              left: 10.5%
+            entity: sensor.p1s_external_spool
+            icon: hue:bridge-v1
+            icon_color: '{{ state_attr(''sensor.p1s_external_spool'', ''color'') }}'
+            tap_action:
+              action: more-info
+            card_mod:
+              style:
+                mushroom-shape-icon$: |
+                  .shape {
+                    box-shadow: var(--tray_x_outline) !important;
+                    --tray_x_outline: {% if is_state_attr('sensor.p1s_external_spool',
+                    'active', true) %} 0px 0px 4px 3px rgba(255,255,16,.7) {% else %} 0px
+                    0px 0px 2px rgba(255,255,255,.7) {% endif %}
+                  }
+                .: |
+                  ha-card {
+                    background-color: rgba(0,0,0,0);
+                    border: none !important;
+                  } 
+                  ha-state-icon {
+                    {{ 'animation: spin 1s linear infinite;' if is_state_attr('sensor.p1s_external_spool', 'active', true) }}
+                  }
+                  :host {
+                    --mush-icon-symbol-size: 35pxem;
+                    --mush-icon-size: 35px
+                  }
+          - entity: sensor.p1s_printer_print_status
+            type: state-label
+            style:
+              top: 4%
+              left: 24%
+              font-size: 1.2em
+              color: '#FFFFFF'
+          - entity: sensor.p1s_printer_nozzle_temperature
+            type: state-badge
+            style:
+              top: 42%
+              left: 49.5%
+              font-size: 0.6em
+              color: rgba(0,0,0,0)
+          - entity: sensor.p1s_printer_bed_temperature
+            type: state-badge
+            style:
+              top: 78%
+              left: 50%
+              font-size: 0.6em
+              color: rgba(0,0,0,0)
+          - type: custom:mushroom-fan-card
+            style:
+              top: 55%
+              left: 9%
+              font-size: 0.8em
+            entity: fan.p1s_printer_aux_fan
+            name: Aux
+            primary_info: state
+            layout: vertical
+            secondary_info: name
+            icon_animation: true
+            tap_action:
+              action: more-info
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: rgba(0,0,0,0);
+                  border: none !important;
+                  box-shadow: none !important;
+                  border-radius: 0px;
+                } 
+                :host {
+                  --mush-icon-symbol-size: 32px;
+                  --mush-icon-size: 32px
+                }
+          - type: custom:mushroom-fan-card
+            style:
+              top: 55%
+              left: 89%
+              font-size: 0.8em
+            entity: fan.p1s_printer_chamber_fan
+            name: Chamber
+            primary_info: state
+            layout: vertical
+            secondary_info: name
+            icon_animation: true
+            tap_action:
+              action: more-info
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: rgba(0,0,0,0);
+                  border: none !important;
+                  box-shadow: none !important;
+                  border-radius: 0px;
+                } 
+                :host {
+                  --mush-icon-symbol-size: 32px;
+                  --mush-icon-size: 32px
+                }
+          - type: custom:mushroom-fan-card
+            style:
+              top: 25%
+              left: 49.7%
+              font-size: 0.8em
+            entity: fan.p1s_printer_cooling_fan
+            name: ' '
+            primary_info: state
+            layout: vertical
+            secondary_info: name
+            icon_animation: true
+            tap_action:
+              action: more-info
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: rgba(0,0,0,0);
+                  border: none !important;
+                  box-shadow: none !important;
+                  border-radius: 0px;
+                } 
+                :host {
+                  --mush-icon-symbol-size: 32px;
+                  --mush-icon-size: 32px
+                }
+          - type: conditional
+            conditions:
+              - entity: sensor.p1s_printer_print_status
+                state: Running
+            elements:
+              - entity: sensor.p1s_printer_current_stage
+                type: state-label
+                style:
+                  top: 10.5%
+                  left: 28%
+                  font-size: .9em
+                  color: '#A0A0A0'
+              - entity: sensor.p1s_printer_nozzle_target_temperature
+                type: state-label
+                suffix: ''
+                style:
+                  top: 46%
+                  left: 50%
+                  font-size: 0.8em
+                  color: rgba(255,255,255,1)
+              - entity: sensor.p1s_printer_target_bed_temperature
+                type: state-label
+                suffix: ''
+                style:
+                  top: 82%
+                  left: 50%
+                  font-size: 0.8em
+                  color: rgba(255,255,255,1)
+              - type: custom:mushroom-chips-card
+                style:
+                  top: 58%
+                  left: 30%
+                chips:
+                  - type: conditional
+                    conditions:
+                      - entity: input_boolean.3d_printer_print_controls
+                        state: 'on'
+                    chip:
+                      type: action
+                      icon_color: amber
+                      icon: mdi:pause
+                      double_tap_action:
+                        action: none
+                      tap_action:
+                        action: call-service
+                        service: button.press
+                        confirmation:
+                          text: PAUSE PRINT?
+                        target:
+                          entity_id: button.p1s_printer_pause_printing
+                        data: {}
+                      hold_action:
+                        action: none
+                      card_mod:
+                        style: |
+                          ha-card {
+                            border: none !important;
+                          } 
+              - type: custom:mushroom-chips-card
+                style:
+                  top: 58%
+                  left: 70%
+                chips:
+                  - type: conditional
+                    conditions:
+                      - entity: input_boolean.3d_printer_print_controls
+                        state: 'on'
+                    chip:
+                      type: action
+                      icon_color: red
+                      icon: mdi:stop
+                      double_tap_action:
+                        action: none
+                      tap_action:
+                        action: call-service
+                        service: button.press
+                        confirmation:
+                          text: STOP PRINT?
+                        target:
+                          entity_id: button.p1s_printer_stop_printing
+                        data: {}
+                      hold_action:
+                        action: none
+                      card_mod:
+                        style: |
+                          ha-card {
+                            border: none !important;
+                          }
+          - type: custom:mushroom-chips-card
+            style:
+              top: 58%
+              left: 30%
+            chips:
+              - type: conditional
+                conditions:
+                  - entity: input_boolean.3d_printer_print_controls
+                    state: 'on'
+                  - entity: sensor.p1s_printer_print_status
+                    state: Pause
+                chip:
+                  type: action
+                  icon_color: teal
+                  icon: mdi:play
+                  double_tap_action:
+                    action: none
+                  tap_action:
+                    action: call-service
+                    service: button.press
+                    confirmation:
+                      text: RESUME PRINT?
+                    target:
+                      entity_id: button.p1s_printer_resume_printing
+                    data: {}
+                  hold_action:
+                    action: none
+                  card_mod:
+                    style: |
+                      ha-card {
+                        border: none !important;
+                      }
+    image: /local/bambuprinter/on_p1p.png
+    entity: light.p1s_printer_chamber_light
+    state_image:
+      unavailable: /local/bambuprinter/off_p1p_edit5.png
+      'on': /local/bambuprinter/on_p1p_edit0.png
+      'off': /local/bambuprinter/off_p1p_edit5.png
+    style: |
+      ha-card {
+        box-shadow: none !important;
+        background: none !important;
+        border: none !important;
+        --tray_x_color: {{state_attr('sensor.p1s_external_spool', 'color') }};
+        --tray_x_bg: {% if is_state_attr('sensor.p1s_external_spool', 'active', true) %} rgba(255, 255, 126, 0.5); {% else %} rgba(0,0,0,0.5); {% endif %}
+      }
+  - type: conditional
+    conditions:
+      - entity: input_boolean.3d_printer_aq_toggle
+        state: 'on'
+    card:
+      square: false
+      type: grid
+      cards:
+        - type: picture-elements
+          elements:
+            - type: custom:mushroom-title-card
+              style:
+                top: 30%
+                left: 50%
+              title: |-
+                {% if states('sensor.h5106_pm25')|int > 9 %}
+                  0{{ states('sensor.h5106_pm25')|int }}
+                {% else %}
+                  00{{ states('sensor.h5106_pm25')|int }}
+                {% endif %}
+              title_tap_action:
+                action: none
+              subtitle_tap_action:
+                action: none
+              card_mod:
+                style: |
+                  ha-card {
+                    --title-font-size: 35px;
+                  }
+            - type: custom:mushroom-title-card
+              style:
+                top: 64%
+                left: 43%
+              title: '{{ states[''sensor.h5106_tempc''].state | round(0)}}°F'
+              title_tap_action:
+                action: none
+              subtitle_tap_action:
+                action: none
+              card_mod:
+                style: |
+                  ha-card {
+                    --title-font-size: 21px;
+                  }
+            - type: custom:mushroom-title-card
+              style:
+                top: 64%
+                left: 64%
+              title: '{{ states[''sensor.h5106_hum''].state | round(0)}}%'
+              title_tap_action:
+                action: none
+              subtitle_tap_action:
+                action: none
+              card_mod:
+                style: |
+                  ha-card {
+                    --title-font-size: 21px;
+                  }
+          image: /local/bambuprinter/AQ2.png
+          style: |
+            ha-card {
+              box-shadow: none !important;
+              background: none !important;
+              border: none !important;
+            }
+      columns: 1
+  - type: conditional
+    conditions:
+      - entity: input_boolean.3d_printer_aq_toggle
+        state: 'off'
+    card:
+      type: custom:mushroom-chips-card
+      chips:
+        - type: template
+          double_tap_action:
+            action: none
+          entity: select.p1s_printer_printing_speed
+          content: Silent
+          tap_action:
+            action: none
+          hold_action:
+            action: call-service
+            service: select.select_option
+            target:
+              entity_id: select.p1s_printer_printing_speed
+            data:
+              option: Silent
+          icon: mdi:speedometer-slow
+          icon_color: >-
+            {% if states['select.p1s_printer_printing_speed'].state == 'Silent'
+            %} 
+              green
+            {% else %}
+              grey
+            {% endif %}  
+        - type: template
+          double_tap_action:
+            action: none
+          entity: select.p1s_printer_printing_speed
+          content: Standard
+          tap_action:
+            action: none
+          hold_action:
+            action: call-service
+            service: select.select_option
+            target:
+              entity_id: select.p1s_printer_printing_speed
+            data:
+              option: Standard
+          icon: mdi:speedometer-medium
+          icon_color: >-
+            {% if states['select.p1s_printer_printing_speed'].state ==
+            'Standard' %} 
+              green
+            {% else %}
+              grey
+            {% endif %}  
+        - type: template
+          double_tap_action:
+            action: none
+          entity: select.p1s_printer_printing_speed
+          content: Sport
+          tap_action:
+            action: none
+          hold_action:
+            action: call-service
+            service: select.select_option
+            target:
+              entity_id: select.p1s_printer_printing_speed
+            data:
+              option: Sport
+          icon: mdi:speedometer
+          icon_color: >-
+            {% if states['select.p1s_printer_printing_speed'].state == 'Sport'
+            %} 
+              green
+            {% else %}
+              grey
+            {% endif %}  
+        - type: template
+          double_tap_action:
+            action: none
+          entity: select.p1s_printer_printing_speed
+          content: Ludicrous
+          tap_action:
+            action: none
+          hold_action:
+            action: call-service
+            service: select.select_option
+            target:
+              entity_id: select.p1s_printer_printing_speed
+            data:
+              option: Ludicrous
+          icon: mdi:alert-octagram
+          icon_color: >-
+            {% if states['select.p1s_printer_printing_speed'].state ==
+            'Ludicrous' %} 
+              green
+            {% else %}
+              grey
+            {% endif %}  
+      alignment: justify
+  - type: conditional
+    conditions:
+      - entity: input_boolean.3d_printer_aq_toggle
+        state: 'off'
+    card:
+      type: custom:mushroom-chips-card
+      chips:
+        - type: template
+          double_tap_action:
+            action: none
+          entity: sensor.p1s_printer_print_progress
+          content: '{{ states[''sensor.p1s_printer_print_progress''].state }}%'
+          tap_action:
+            action: more-info
+          hold_action:
+            action: none
+          icon: mdi:progress-clock
+          icon_color: ''
+        - type: template
+          double_tap_action:
+            action: none
+          entity: sensor.p1s_printer_current_layer
+          content: |-
+            {{states('sensor.p1s_printer_current_layer')}} /
+            {{states('sensor.p1s_printer_total_layer_count')}}
+          tap_action:
+            action: more-info
+          hold_action:
+            action: none
+          icon: mdi:layers-triple
+          icon_color: ''
+        - type: template
+          double_tap_action:
+            action: none
+          entity: sensor.p1s_printer_remaining_time
+          content: '{{ states[''sensor.p1s_printer_remaining_time''].state }}'
+          tap_action:
+            action: more-info
+          hold_action:
+            action: none
+          icon: mdi:timer-sand
+          icon_color: ''
+        - type: template
+          double_tap_action:
+            action: none
+          entity: sensor.p1s_printer_end_time
+          content: '{{ states[''sensor.p1s_printer_end_time''].state }}'
+          tap_action:
+            action: more-info
+          hold_action:
+            action: none
+          icon: mdi:clock-check
+          icon_color: ''
+        - type: template
+          entity: binary_sensor.p1s_printer_hms_errors
+          icon: mdi:alert-circle
+          icon_color: >-
+            {% if states['binary_sensor.p1s_printer_hms_errors'].state == 'off'
+            %} 
+              white
+            {% else %}
+              red
+            {% endif %} 
+          content: HMS
+          double_tap_action:
+            action: none
+          tap_action:
+            action: more-info
+          hold_action:
+            action: none
+      alignment: center
