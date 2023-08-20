@@ -30,10 +30,12 @@ HACS Integration
 HACS frontend
 - mushroom cards
 -	card-mod
--	Hass Hue Icons(spool icons)
--	frigate-card (for camera pop)
+-	Hass Hue Icons(used for AMS spool icons. You can change to any mdi icon if preferred)
+-	frigate-card (only needed for my external camera pop)
 
 **2 input_boolean helpers used to show/hide info**
 -	one to show/hide the stop,pause,play print buttons (input_boolean.3d_printer_print_controls)
 -	one to show/hide air quality sensor (Govee) (input_boolean.3d_printer_aq_toggle)
 
+
+![bambu](https://github.com/stephack/Hassio/assets/20565645/2ef26922-a737-4263-9a64-14ad4f7171fd)
