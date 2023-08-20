@@ -12,11 +12,12 @@ Below are some of the changes I made to WolfwithSword's awesome dashboard templa
 
 **Edited both photos**
 - AMS pic - made all the filament spools look the same (lighter)
-- P1S pic - removed picture of ptfe tubing at the top
+- P1S pics - removed picture of ptfe tubing at the top
 
 **Uses the following custom cards**
 HACS Integration
 - browser_mod
+  
 HACS frontend
 - mushroom cards
 -	card-mod
