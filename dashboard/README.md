@@ -15,6 +15,7 @@ Below are some of the changes I made to WolfwithSword's awesome dashboard templa
 - P1S pics - removed picture of ptfe tubing at the top
 
 **Uses the following custom cards**
+
 HACS Integration
 - browser_mod
   
