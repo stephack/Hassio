@@ -1,11 +1,16 @@
 This is the yaml for my current P1S HA dashboard.
-I borrowed HEAVILY from @WolfwithSword dashboard template but customized his code to meet my requirements. 
-It's inspired by his template but I made a lot of chabges over time to make it work for me. See his awesome templlate below:
+I borrowed heavily from @WolfwithSword dashboard template but customized his code to meet my requirements (mobile view with as much control as possible with no scrolling). 
+It's inspired by his template but I made a lot of chabges over time to make it work for me. See his awesome template below:
 
 https://www.wolfwithsword.com/bambulab-home-assistant-dashboard/
 
+
+
 Amongst other things, this dashboard pulls it data from the Hacs integration for Bambu Labs printers found here:
+
 https://github.com/greghesp/ha-bambulab
+
+
 
 
 Below are some of the changes I made to WolfwithSword's awesome dashboard template.
