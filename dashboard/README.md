@@ -19,6 +19,9 @@ Below are some of the changes I made to WolfwithSword's awesome dashboard templa
 - AMS pic - made all the filament spools look the same (lighter)
 - P1S pics - removed picture of ptfe tubing at the top
 
+_* all pictures were stored in the /wwww/bambuprinter folder_
+
+  
 **Uses the following custom cards**
 
 HACS Integration
@@ -33,3 +36,4 @@ HACS frontend
 **2 input_boolean helpers used to show/hide info**
 -	one to show/hide the stop,pause,play print buttons (input_boolean.3d_printer_print_controls)
 -	one to show/hide air quality sensor (Govee) (input_boolean.3d_printer_aq_toggle)
+
